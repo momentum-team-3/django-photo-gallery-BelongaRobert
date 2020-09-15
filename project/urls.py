@@ -20,9 +20,8 @@ from gallery import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.PhotoList.as_view()),
-    #path('accounts/', include('registration.backends.default.urls.')),
-
+    path('home', views.HomeView.as_view()),
+    path('accounts/', include('registration.backends.default.urls')),
 ]
 
 if settings.DEBUG:

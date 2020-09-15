@@ -4,7 +4,7 @@ from gallery.models import Photo, Album
 # Create your views here.
 
 class HomeView(TemplateView):
-    template_name = "photos/base.html"
+    template_name = "photos/home.html"
 
 class PhotoList(ListView):
     model = Photo

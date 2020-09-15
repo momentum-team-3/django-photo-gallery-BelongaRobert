@@ -1,5 +1,4 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en-US">
 
@@ -8,9 +7,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Photoss</title>
     </head>
-
         <body>
             <h1>The Photo Lounge</h1>
+            <a href="{% url 'registration_register' %}">Create Account</a>
+
+        {% block content %}
+        
+        {% endblock %}
         </body>
 
 
