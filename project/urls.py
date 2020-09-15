@@ -20,7 +20,7 @@ from gallery import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('/home', views.home.as_view()),
+    path('', views.PhotoList.as_view()),
     #path('accounts/', include('registration.backends.default.urls.')),
 
 ]

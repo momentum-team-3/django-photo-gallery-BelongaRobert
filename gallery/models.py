@@ -4,7 +4,7 @@ from django.db import models
 # Create your models here.
 
 class Album(models.Model):
-    title = models.CharField(max_length=35)
+    title = models.TextField(max_length=35)
     public = models.BooleanField(default=False)
 
 class Photo(models.Model):
