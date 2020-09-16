@@ -5,14 +5,15 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Photoss</title>
+        <title>{% block title %}Photoss{% endblock %}</title>
     </head>
         <body>
+        {% block content %}
             <h1>The Photo Lounge</h1>
             <a href="{% url 'registration_register' %}">Create Account</a>
     
 
-        {% block content %}
+    
         
         {% endblock %}
         </body>

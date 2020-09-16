@@ -13,6 +13,10 @@ werkzeug = "*"
 django-environ = "*"
 django-registration-redux = "*"
 django-db = "*"
+django-shortcuts = "*"
+pillow = "*"
+django-imagekit = "*"
+prospector = "*"
 
 [requires]
 python_version = "3.8"

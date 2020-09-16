@@ -19,10 +19,9 @@ from django.urls import include, path
 from gallery import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('home', views.HomeView.as_view()),
-    path('accounts/', include('registration.backends.simple.urls')),
-    #path('/accounts/register/', include(registration.backends.simple.views.RegistrationView)),
+    path("admin/", admin.site.urls),
+    path("home", views.HomeView.as_view()),
+    path("accounts/", include("registration.backends.simple.urls")),
 ]
 
 if settings.DEBUG:

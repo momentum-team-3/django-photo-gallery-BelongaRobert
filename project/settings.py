@@ -38,6 +38,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+    'registration',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -47,7 +48,7 @@ INSTALLED_APPS = [
     # Third-party
     'debug_toolbar',
     'django_extensions',
-    'registration',
+    'imagekit',
     #'photo.apps.PhotoCongig',
 
     # Project-specific
@@ -61,13 +62,13 @@ LOGIN_REDIRECT_URL= '/home'
 
 
 #email settings
-EMAIL_BACKEND= "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST= "smtp.gmail.com"
-EMAIL_HOST_USER= "dp0313889@gmail.com"
-EMAIL_HOST_PASSWORD= "heheking1" #Do I put the email host password?
-EMAIL_PORT= 587
-EMAIL_USE_TLS= True
-DEFAULT_FROM_EMAIL= "abc@gmail.com"
+#EMAIL_BACKEND= "django.core.mail.backends.smtp.EmailBackend"
+#EMAIL_HOST= "smtp.gmail.com"
+#EMAIL_HOST_USER= "dp0313889@gmail.com"
+#EMAIL_HOST_PASSWORD= "heheking1" #Do I put the email host password?
+#EMAIL_PORT= 587
+#EMAIL_USE_TLS= True
+#DEFAULT_FROM_EMAIL= "abc@gmail.com"
 
 
 
