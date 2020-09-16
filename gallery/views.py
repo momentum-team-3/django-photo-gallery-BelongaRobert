@@ -9,7 +9,7 @@ class HomeView(TemplateView):
 class PhotoList(ListView):
     model = Photo
     template_name = "photos/photo_list.html"
-    photos = Photo.objects
+    photos = Photo.objects.all()
 
 class PhotoView(DetailView):
     model = Photo
@@ -18,7 +18,8 @@ class PhotoView(DetailView):
 class AlbumList(ListView):
     model = Album
     template_name = "photos/album_list.html"
-    
+    albums = Album.objects.all()
+
 class AlbumView(DetailView):
     model = Album
     template_name = "photos/album_view.html"

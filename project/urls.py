@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('home', views.HomeView.as_view()),
     path('accounts/', include('registration.backends.simple.urls')),
+    #path('/accounts/register/', include(registration.backends.simple.views.RegistrationView)),
 ]
 
 if settings.DEBUG:
