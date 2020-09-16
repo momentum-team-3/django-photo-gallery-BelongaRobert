@@ -8,13 +8,12 @@
         <title>{% block title %}Photoss{% endblock %}</title>
     </head>
         <body>
-        {% block content %}
-            <h1>The Photo Lounge</h1>
+            <h1>THE BEST PHOTO GALLERY</h1>
+            <a href="{% url 'auth_login' %}">Login</a>
             <a href="{% url 'registration_register' %}">Create Account</a>
-    
-
-    
+            <!---<a href="{% url 'auth_logout' %}">Logout</a>--->
         
+        {% block content %}
         {% endblock %}
         </body>
 
