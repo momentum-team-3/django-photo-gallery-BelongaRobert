@@ -21,7 +21,7 @@ from gallery import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('home', views.HomeView.as_view()),
-    path('accounts/', include('registration.backends.default.urls')),
+    path('accounts/', include('registration.backends.simple.urls')),
 ]
 
 if settings.DEBUG:
