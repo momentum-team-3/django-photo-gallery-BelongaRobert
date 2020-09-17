@@ -1,7 +1,7 @@
 from django.db import models
-from users.models import User
-from imagekit.models import ImageSpecField
-from imagekit.processors import ResizeToFill
+#from users.models import User
+#from imagekit.models import ImageSpecField
+#from imagekit.processors import ResizeToFill
 
  
 
@@ -20,9 +20,10 @@ class Album(models.Model):
 class Photo(models.Model):
     #owner = models.ForeignKey(to="User", on_delete=models.CASCADE, null=True)
     title = models.TextField(max_length=35)
-    image = models.ImageField(upload_to="images/", null=True, blank=True)
+    #image = models.ImageField(upload_to="images/", processors=[ResizeToFill(100,100)])
+    #image_thumb = models.ImageSpecField(source="images/", processors=[ResizeToFill(100,100)])
     description = models.TextField(max_length=100, blank=True)
-    #comments = models.ForeignKey(to="Summary", on_delete=models.CASCADE, null=True)
+    comments = models.ForeignKey(to="Summary", on_delete=models.CASCADE, null=True)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True )
     albums = models.ManyToManyField(to="Album", blank=True)
 

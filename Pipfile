@@ -17,6 +17,8 @@ django-shortcuts = "*"
 pillow = "*"
 django-imagekit = "*"
 prospector = "*"
+environ = "*"
+pylint = "*"
 
 [requires]
 python_version = "3.8"
