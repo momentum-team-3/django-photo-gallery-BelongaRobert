@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<h2>Add a new Photo</h2>
+<h2>Create a new Album!</h2>
 <div>
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <div>
-            <button type="submit">Upload Photo</button>
+            <button type="submit">Create Album</button>
         </div>
     </form>
 </div>

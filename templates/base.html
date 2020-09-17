@@ -9,10 +9,16 @@
     </head>
         <body>
             <h1>THE BEST PHOTO GALLERY</h1>
-            <a href="{% url 'auth_login' %}">Login</a>
-            <a href="{% url 'registration_register' %}">Create Account</a>
-            <!---<a href="{% url 'auth_logout' %}">Logout</a>--->
-        
+            {% if user.is_authenticated %}
+                <p><a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'auth_logout' %}">Logout</a>
+                <a href="{% url 'add_album' %}">Create Album</a></p>
+            {% else %}
+                <p><a href="{% url 'home' %}">Home</a>
+                <a href="{% url 'auth_login' %}">Login</a>
+                <a href="{% url 'registration_register' %}">Create Account</a></p>
+            {% endif %}
+
         {% block content %}
         {% endblock %}
         </body>

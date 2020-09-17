@@ -19,6 +19,7 @@ django-imagekit = "*"
 prospector = "*"
 environ = "*"
 pylint = "*"
+"django.db" = "*"
 
 [requires]
 python_version = "3.8"
