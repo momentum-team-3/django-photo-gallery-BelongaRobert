@@ -22,7 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomeView.as_view(), name='home'),
     path('accounts/', include('registration.backends.simple.urls')),
-    path('templates/', views.AddAlbum.as_view(), name="add_album")
+    path('templates/photos', views.AddAlbum.as_view(), name="add_album"),
+    path('templates/photos', views.AlbumList.as_view(), name="album_list"),
 ]
 
 if settings.DEBUG:

@@ -1,3 +1,16 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
 {% block content %}
+    <h1>List of Albums</h1>
+    {% for Albums in object_list %}
+    <div>
+      <p>{{ Album.title }}</p>
+      <p>{{ Album.description }}</p>
+      <p>{{ Album.owner }}</p>
+      <p>{{ Album.created }}</p>
+    </div>
+    <div>
+        <a href="{% url 'PhotoList' Album.pk %}">View Photos in Album</a>
+  </div>
+    {% endfor %}
 {% endblock %}

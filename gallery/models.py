@@ -9,29 +9,29 @@ from imagekit.processors import ResizeToFill, ResizeToFit
 # Create your models here.
 
 class Album(models.Model):
-    owner = models.ForeignKey(to=User, related_name="albums", on_delete=models.CASCADE, blank=False, null=True)
+    owner = models.ForeignKey(to=User, on_delete=models.CASCADE)
     title = models.TextField(max_length=35)
-    description = models.TextField(max_length=100,blank=True)
-    public = models.BooleanField(default=True, blank=True)
-    default_photo = models.ImageField(upload_to="images/", null=True, blank=True)
-    created = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+    description = models.TextField(max_length=100, blank=True)
+    public = models.BooleanField(default=True)
+    default_photo = models.ImageField(upload_to="images/", blank=True)
+    created = models.DateTimeField(auto_now=True)
     #photos = models.ManyToManyField(to="Photo")
 
 
 class Photo(models.Model):
-    owner = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=False, null=True)
+    owner = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=False, null=False)
     title = models.TextField(max_length=35)
     image = models.ImageField(upload_to="images/", null=True, blank=True)
     image_medium = ImageSpecField(source="images/", processors=[ResizeToFit(200,200)], format='jpeg', options={'quality':100} )
     image_thumb = ImageSpecField(source="images/", processors=[ResizeToFill(200,200)],format='jpeg', options={'quality':100})
     description = models.TextField(max_length=100, blank=True)
-    comments = models.ForeignKey(to="Summary", on_delete=models.CASCADE, null=True)
-    created = models.DateTimeField(auto_now_add=True, null=True, blank=True )
-    albums = models.ForeignKey(to="Album", on_delete=models.CASCADE, blank=False, null=True)
+    #comments = models.ForeignKey(to="Summary", on_delete=models.CASCADE, blank=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
+    albums = models.ForeignKey(to="Album", on_delete=models.CASCADE, blank=False, null=False)
 
 
 class Summary(models.Model):
     body = models.TextField(max_length=350)
-    owner = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=False, null=True )
-    photo_of = models.ForeignKey(to="Photo", on_delete=models.CASCADE, blank=False, null=True)
-    created = models.DateTimeField(auto_now_add=True, null=True, blank=False)
+    owner = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=False, null=False )
+    photo_of = models.ForeignKey(to="Photo", on_delete=models.CASCADE, blank=False, null=False)
+    created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
