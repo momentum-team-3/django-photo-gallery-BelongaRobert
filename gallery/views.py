@@ -25,7 +25,7 @@ class PhotoView(LoginRequiredMixin, DetailView):
     
 class AlbumList(LoginRequiredMixin, ListView):
     model = Album
-    template_name = "photos/album_list.html"
+    template_name = "album_list.html"
     albums = Album.objects.all()
 
 class AlbumView(LoginRequiredMixin, DetailView):

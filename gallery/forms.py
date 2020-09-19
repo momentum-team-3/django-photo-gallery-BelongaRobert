@@ -10,7 +10,7 @@ class AddAlbumForm(ModelForm):
             'description',
             'public',
             #'created',
-            #'default_photo',
+            'default_photo',
         ]
 
 
@@ -24,5 +24,6 @@ class AddPhotoForm(ModelForm):
             'description',
             #'created',
             'albums_in',
+            'public',
             
         ]

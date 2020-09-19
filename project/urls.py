@@ -23,8 +23,8 @@ urlpatterns = [
     path('', views.HomeView.as_view(), name='home'),
     path('accounts/', include('registration.backends.simple.urls')),
     path('templates/photos/', views.AddAlbum.as_view(), name='add_album'),
-    path('templates/photos', views.AlbumList.as_view(), name='album_list'),
-    path('templates/photos', views.AddPhoto.as_view(), name="add_photo"),
+    path('templates/photos/', views.AlbumList.as_view(), name='album_list'),
+    path('templates/photos/', views.AddPhoto.as_view(), name="add_photo"),
 ]
 
 if settings.DEBUG:

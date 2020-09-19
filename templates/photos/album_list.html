@@ -2,15 +2,15 @@
 
 {% block content %}
     <h1>List of Albums</h1>
-    {% for album in albums %}
+    {% for Album in Albums %}
     <div>
-      <p>{{ AddAlbumForm.title }}</p>
-      <p>{{ AddAlbumForm.description }}</p>
-      <p>{{ AddAlbumForm.owner }}</p>
-      <p>{{ AddAlbumForm.created }}</p>
+      <p>{{ Album.title }}</p>
+      <p>{{ Album.description }}</p>
+      <p>{{ Album.owner }}</p>
+      <p>{{ Album.created }}</p>
     </div>
     <div>
-        <a href="{% url 'PhotoList' Album.pk %}">View Photos in Album</a>
+        <a href="{% url 'photo_list' Album.pk %}">View Photos in Album</a>
   </div>
     {% endfor %}
 {% endblock %}
