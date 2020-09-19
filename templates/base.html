@@ -12,8 +12,9 @@
             {% if user.is_authenticated %}
                 <p><a href="{% url 'home' %}">Home</a>
                 <a href="{% url 'auth_logout' %}">Logout</a>
-                <a href="{% url 'add_album' %}">Create Album</a></p>
-                <a href="{% url 'album_list' %}">List of Albums</a>
+                <a href="{% url 'add_photo' %}">Add a photo</a>
+                <a href="{% url 'add_album' %}">Create Album</a>
+                <a href="{% url 'album_list' %}">List of Albums</a></P>
             {% else %}
                 <p><a href="{% url 'home' %}">Home</a>
                 <a href="{% url 'auth_login' %}">Login</a>

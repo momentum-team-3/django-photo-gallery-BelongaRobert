@@ -2,10 +2,10 @@
 
 {% block content %}
 <h2>Add a new Photo</h2>
-<div>
-    <form method="POST">
+<div class="AddPhotoForm">
+    <form class="AddPhotoForm" method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ AddPhotoForm.as_p }}
         <div>
             <button type="submit">Upload Photo</button>
         </div>
