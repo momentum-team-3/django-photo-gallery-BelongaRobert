@@ -1,10 +1,10 @@
 #from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView, CreateView, DeleteView, FormView
+from django.views.generic import ListView, DetailView, TemplateView, DeleteView, FormView
 from django.views.generic.base import RedirectView
 #from django.urls import redirect
 from django.shortcuts import redirect
 #from django.contrib.auth.decorators import login_required
-from .forms import AddAlbumForm
+from .forms import AddAlbumForm, AddPhotoForm
 from gallery.models import Photo, Album
 from users.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -25,7 +25,7 @@ class PhotoView(LoginRequiredMixin, DetailView):
     
 class AlbumList(LoginRequiredMixin, ListView):
     model = Album
-    template_name = "album_list.html"
+    template_name = "photos/album_list.html"
     albums = Album.objects.all()
 
 class AlbumView(LoginRequiredMixin, DetailView):
@@ -47,11 +47,14 @@ class AddAlbum(LoginRequiredMixin, FormView):
         return redirect(self.success_url)
 
 
-
-class AddPhoto(LoginRequiredMixin, CreateView):
-    model = Photo
+class AddPhoto(LoginRequiredMixin, FormView):
+    form_class = AddPhotoForm
     template_name = "add_photo.html"
-    fields = ['owner', 'title', 'description', 'public']
+    fields = ['owner', 'title', 'image', 'description', 'public']
+    success_url = '/'
+    def form_valid(self, form):
+        form.save()
+        return redirect(self.success_url)
 
 class Login(RedirectView):
     template_name = "auth_login.html"

@@ -14,6 +14,7 @@ class AddAlbumForm(ModelForm):
         ]
 
 
+
 class AddPhotoForm(ModelForm):
     class Meta:
         model = Photo
