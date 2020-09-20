@@ -4,10 +4,11 @@
 
     <head>
         <meta charset="UTF-8">
+        <link rel="stylesheet" href="https://unpkg.com/tachyons@4.12.0/css/tachyons.min.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Photoss{% endblock %}</title>
-    </head>
-        <body>
+    </head><body>
+<!--         
             <h1>THE BEST PHOTO GALLERY</h1>
             {% if user.is_authenticated %}
                 <p><a href="{% url 'home' %}">Home</a>
@@ -15,19 +16,32 @@
                 <a href="{% url 'add_photo' %}">Add a photo</a>
                 <a href="{% url 'add_album' %}">Create Album</a>
                 <a href="{% url 'album_list' %}">List of Albums</a>
-                <a href="{% url 'photo_list' %}">Photo List</a>
+                 <a href="{% url 'photo_list' %}">Photo List</a> 
                 <a href="{% url 'add_comment' %}">Add Comment</a>
             {% else %}
                 <p><a href="{% url 'home' %}">Home</a>
                 <a href="{% url 'auth_login' %}">Login</a>
                 <a href="{% url 'registration_register' %}">Create Account</a></p>
             {% endif %}
-
-        {% block content %}
-        {% endblock %}
         </body>
+ -->
 
-
-
-
+        <nav class="pa3 pa4-ns">
+            <a class="link dim black b f1 f-headline-ns tc db mb3 mb4-ns" href="#" title="Home">The Best Photo Gallery</a>
+            <div class="tc pb3">
+            {% if user.is_authenticated %}
+              <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'home' %}" title="Home">Home</a>
+              <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'auth_logout' %}" title="Logout">Logout</a>
+              <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'add_album' %}" title="Create Album">Create Album</a>
+              <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'album_list' %}" title="List Album">List Albums</a>
+            {% else %}
+            <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'home' %}" title="Home">Home</a>
+              <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'auth_login' %}" title="Login">Login</a>
+              <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'registration_register' %}" title="Create Account">Create an account</a>
+            {% endif %}
+            </div>
+          </nav>
+          {% block content %}
+          {% endblock %}
+        </body>
 </html>
