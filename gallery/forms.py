@@ -21,7 +21,7 @@ class AddPhotoForm(ModelForm):
         fields = [
             'owner',
             'title',
-            'image',
+            'media',
             'description',
             #'created',
             'albums_in',
