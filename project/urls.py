@@ -1,11 +1,11 @@
 """project URL Configuration
 
-The `urlpatterns` list routes URLs to views. For more information please see:
+The `urlpatterns` list routes URLs to  For more information please see:
     https://docs.djangoproject.com/en/3.0/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
+    2. Add a URL to urlpatterns:  path('', home, name='home')
 Class-based views
     1. Add an import:  from other_app.views import Home
     2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
@@ -18,13 +18,18 @@ from django.conf import settings
 from django.urls import include, path
 from gallery import views
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomeView.as_view(), name='home'),
     path('accounts/', include('registration.backends.simple.urls')),
-    path('templates/photos/', views.AddAlbum.as_view(), name='add_album'),
-    path('templates/photos/', views.AlbumList.as_view(), name='album_list'),
-    path('templates/photos/', views.AddPhoto.as_view(), name="add_photo"),
+    path('addalbum/', views.AddAlbum.as_view(), name='add_album'),
+    path('albumlist/', views.AlbumList.as_view(), name='album_list'),
+    path('addphoto/', views.AddPhoto.as_view(), name='add_photo'),
+    path('photolist/', views.PhotoList.as_view(), name='photo_list'),
+    path('<int:pk>photoview/', views.PhotoView.as_view(), name='photo_view'),
+    path('<int:pk>albumview/',views.AlbumView.as_view(), name='album_view'),
+    
 ]
 
 if settings.DEBUG:

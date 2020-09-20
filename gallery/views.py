@@ -1,5 +1,5 @@
 #from django.shortcuts import render
-from django.views.generic import ListView, DetailView, TemplateView, DeleteView, FormView
+from django.views.generic import TemplateView, ListView, DetailView, DeleteView, FormView
 from django.views.generic.base import RedirectView
 #from django.urls import redirect
 from django.shortcuts import redirect
@@ -26,11 +26,14 @@ class PhotoView(LoginRequiredMixin, DetailView):
 class AlbumList(LoginRequiredMixin, ListView):
     model = Album
     template_name = "photos/album_list.html"
-    albums = Album.objects.all()
+    queryset = Album.objects.all()
+    
 
 class AlbumView(LoginRequiredMixin, DetailView):
     model = Album
     template_name = "photos/album_view.html"
+    queryset = Album.objects.all()
+
    
 class DeletePhoto(LoginRequiredMixin, DeleteView):
     model = Photo
@@ -40,6 +43,7 @@ class AddAlbum(LoginRequiredMixin, FormView):
     form_class = AddAlbumForm
     template_name = "photos/add_album.html"
     fields = ['owner', 'title', 'description', 'public', ]
+    queryset = Album.objects.all()
     success_url = '/'
     
     def form_valid(self, form):
@@ -49,9 +53,10 @@ class AddAlbum(LoginRequiredMixin, FormView):
 
 class AddPhoto(LoginRequiredMixin, FormView):
     form_class = AddPhotoForm
-    template_name = "add_photo.html"
+    template_name = "photos/add_photo.html"
     fields = ['owner', 'title', 'image', 'description', 'public']
     success_url = '/'
+    
     def form_valid(self, form):
         form.save()
         return redirect(self.success_url)

@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>List of Albums</h1>
+   <body><h1>List of Albums</h1>
     {% for Album in Albums %}
+    <div class="AlbumList"><ul>
+      <li>{{ Album.title }}</li>
+      <li>{{ Album.description }}</li>
+      <li>{{ Album.owner }}</li>
+      <li>{{ Album.created }}</li>
+    </ul></div></body>
     <div>
-      <p>{{ Album.title }}</p>
-      <p>{{ Album.description }}</p>
-      <p>{{ Album.owner }}</p>
-      <p>{{ Album.created }}</p>
-    </div>
-    <div>
-        <a href="{% url 'photo_list' Album.pk %}">View Photos in Album</a>
+        <a href="{% url 'photo_list' pk=album.pk %}">View Photos in Album</a>
   </div>
     {% endfor %}
 {% endblock %}
