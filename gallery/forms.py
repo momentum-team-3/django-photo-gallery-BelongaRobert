@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Photo, Album
+from .models import Photo, Album, Summary
 
 class AddAlbumForm(ModelForm):
     class Meta:
@@ -27,4 +27,15 @@ class AddPhotoForm(ModelForm):
             'albums_in',
             'public',
             
+        ]
+
+
+class AddCommentForm(ModelForm):
+    class Meta:
+        model = Summary
+        fields = [
+            'owner',
+            'body',
+            'photo_of',
+            #'created',
         ]

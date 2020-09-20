@@ -27,9 +27,9 @@ urlpatterns = [
     path('albumlist/', views.AlbumList.as_view(), name='album_list'),
     path('addphoto/', views.AddPhoto.as_view(), name='add_photo'),
     path('photolist/', views.PhotoList.as_view(), name='photo_list'),
-    path('<int:pk>photoview/', views.PhotoView.as_view(), name='photo_view'),
-    path('<int:pk>albumview/',views.AlbumView.as_view(), name='album_view'),
-    
+    path('photoview/<int:pk>', views.PhotoView.as_view(), name='photo_view'),
+    path('albumview/<int:pk>',views.AlbumView.as_view(), name='album_view'),
+    path('addcomment/', views.AddComment.as_view(), name='add_comment'),
 ]
 
 if settings.DEBUG:

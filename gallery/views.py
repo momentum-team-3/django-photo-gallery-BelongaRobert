@@ -4,7 +4,7 @@ from django.views.generic.base import RedirectView
 #from django.urls import redirect
 from django.shortcuts import redirect
 #from django.contrib.auth.decorators import login_required
-from .forms import AddAlbumForm, AddPhotoForm
+from .forms import AddAlbumForm, AddPhotoForm, AddCommentForm
 from gallery.models import Photo, Album
 from users.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -68,3 +68,14 @@ class ProfileView(LoginRequiredMixin, DetailView):
     model = User
     template_name = "auth_login.html"
     
+
+
+class AddComment(LoginRequiredMixin, FormView):
+    form_class = AddCommentForm
+    template_name = 'photos/add_comment.html'
+    fields = ['body', 'owner', 'photo_of']
+    success_url = 'photos/photo_view.html'
+
+    def form_valid(self, form):
+        form.save()
+        return redirect(self.success_url)

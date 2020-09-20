@@ -43,3 +43,9 @@ class Summary(models.Model):
     owner = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True )
     photo_of = models.ForeignKey(to="Photo", on_delete=models.CASCADE, null=True)
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+
+    class Meta:
+        ordering = ['created']
+
+    def __str__(self):
+        return f'{self.owner}'
