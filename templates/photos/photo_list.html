@@ -2,15 +2,16 @@
 
 {% block content %}
    <body><h1>List of Photos</h1>
-    {% for Photo in Photos %}
+    {% for photo in photos %}
     <div class="PhotoList">
-      <p>{{ Photo.title }}</p>
-      <p>{{ Photo.description }}</p>
-      <p>{{ Photo.owner }}</p>
-      <p>{{ Photo.created }}</p>
+      <p>{{ photo.title }}</p>
+      <p>{{ photo.description }}</p>
+      <img src="{{ photo.image_medium }}"/>
+      <p>{{ photo.owner }}</p>
+      <p>{{ photo.created }}</p>
     </div></body>
     <div>
-        <a href="{% url 'photo_view' pk=Photo.pk %}">View Photos in Photo</a>
+        <a href="{% url 'photo_view'  %}">View Comments</a>
   </div>
     {% endfor %}
 {% endblock %}

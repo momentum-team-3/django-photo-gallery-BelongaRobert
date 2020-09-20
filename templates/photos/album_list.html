@@ -2,15 +2,15 @@
 
 {% block content %}
    <body><h1>List of Albums</h1>
-    {% for Album in Albums %}
+    {% for album in albums %}
     <div class="AlbumList"><ul>
-      <li>{{ Album.title }}</li>
-      <li>{{ Album.description }}</li>
-      <li>{{ Album.owner }}</li>
-      <li>{{ Album.created }}</li>
+      <li>{{ album.title }}</li>
+      <li>{{ album.description }}</li>
+      <li>{{ album.owner }}</li>
+      <li>{{ album.created }}</li>
     </ul></div></body>
     <div>
-        <a href="{% url 'photo_list' pk=album.pk %}">View Photos in Album</a>
+        <a href="{% url 'photo_list'  %}">View Photos in Album</a>
   </div>
     {% endfor %}
 {% endblock %}

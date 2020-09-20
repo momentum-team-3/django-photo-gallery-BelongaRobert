@@ -18,6 +18,11 @@ class PhotoList(LoginRequiredMixin, ListView):
     model = Photo
     template_name = "photos/photo_list.html"
     photos = Photo.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(PhotoList, self).get_context_data(**kwargs)
+        photos = self.get_queryset()
+        context['photos'] = photos
+        return context
 
 class PhotoView(LoginRequiredMixin, DetailView):
     model = Photo
@@ -27,7 +32,13 @@ class AlbumList(LoginRequiredMixin, ListView):
     model = Album
     template_name = "photos/album_list.html"
     queryset = Album.objects.all()
-    
+    def get_context_data(self, **kwargs):
+        context = super(AlbumList, self).get_context_data(**kwargs)
+        albums = self.get_queryset()
+        #cover_photo = self.request.GET.get('default_photo')
+        context['albums'] = albums
+        return context
+
 
 class AlbumView(LoginRequiredMixin, DetailView):
     model = Album
@@ -55,6 +66,7 @@ class AddPhoto(LoginRequiredMixin, FormView):
     form_class = AddPhotoForm
     template_name = "photos/add_photo.html"
     fields = ['owner', 'title', 'image', 'description', 'public']
+    queryset = Photo.objects.all()
     success_url = '/'
     
     def form_valid(self, form):
