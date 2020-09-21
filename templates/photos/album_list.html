@@ -6,9 +6,11 @@
   <div class="pv2 ph3">
      <h1 class="f6 ttu tracked">{{ album.title }}</h1>
   </div>
-  <img src="{{ photo.image_thumb.url }}" class="w-100 db" alt="{{ album.description }}">
+  <img src="{{ album.default_image.url }}" class="w-100 db" alt="{{ album.description }}">
   <div class="pa3">
-    <a href="{% url 'photo_list' %}" class="link dim lh-title">View Photos in Album</a>
+    <ul><li><a href="{% url 'photo_list' %}" class="link dim lh-title">View Photos in Album</a></li>
+   <li> <a href="{% url 'edit_album' %}" class="link dim lh-title">Edit Album</a></li></ul>
+
     <small class="gray db pv2">{{ album.owner }} - <time>{{ album.created }}</time></small>
   </div>
 </article>

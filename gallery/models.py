@@ -16,7 +16,7 @@ class Album(models.Model):
     default_photo = models.ForeignKey(to="Photo", on_delete=models.CASCADE, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
     #photos = models.ManyToManyField(to="Photo", related_name="albums")
-
+    
     def __str__(self):
         return f'{self.title}'
 

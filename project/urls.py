@@ -24,13 +24,14 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.HomeView.as_view(), name='home'),
     path('accounts/', include('registration.backends.simple.urls')),
-    path('addalbum/', views.AddAlbum.as_view(), name='add_album'),
+    path('addalbum/', views.AddAlbum, name='add_album'),
     path('albumlist/', views.AlbumList.as_view(), name='album_list'),
     path('addphoto/', views.AddPhoto.as_view(), name='add_photo'),
     path('photolist/', views.PhotoList.as_view(), name='photo_list'),
     path('albumview/',views.AlbumView.as_view(), name='album_view'),
     path('addcomment/', views.AddComment.as_view(), name='add_comment'),
     path('viewcomment/', views.CommentListView.as_view(), name='view_comment'),
+    path('editalbum/', views.EditAlbum.as_view(), name='edit_album')
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

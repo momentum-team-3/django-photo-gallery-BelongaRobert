@@ -1,7 +1,7 @@
-#from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView, DeleteView, FormView
+from django.shortcuts import render
+from django.views.generic import TemplateView, ListView, DetailView, DeleteView, FormView, UpdateView
 from django.views.generic.base import RedirectView
-#from django.urls import redirect
+from django.urls import reverse_lazy
 from django.shortcuts import redirect
 #from django.contrib.auth.decorators import login_required
 from .forms import AddAlbumForm, AddPhotoForm, AddCommentForm
@@ -50,7 +50,7 @@ class DeletePhoto(LoginRequiredMixin, DeleteView):
     model = Photo
     template_name = "delete_photo.html"
 
-class AddAlbum(LoginRequiredMixin, FormView):
+""" class AddAlbum(LoginRequiredMixin, FormView):
     form_class = AddAlbumForm
     template_name = "photos/add_album.html"
     fields = ['owner', 'title', 'description', 'public', ]
@@ -59,8 +59,34 @@ class AddAlbum(LoginRequiredMixin, FormView):
     
     def form_valid(self, form):
         form.save()
-        return redirect(self.success_url)
+        Album.owner = user.username
+        data = {
+            'pk:self.object.pk,
+        }
+        return redirect(self.success_url, Album_pk=Album.pk)
+ """
 
+def AddAlbum(request):
+    if request.method == "GET":
+        form = AddAlbumForm()
+    else:
+        form = AddAlbumForm(request.POST)
+        if form.is_valid():
+            album = form.save()
+            album.owner.add(request.user)
+            album.save()
+            return redirect(to="album_list")
+    return render(request, "photos/add_album.html", {
+        "form": form,
+    })
+            
+class EditAlbum(LoginRequiredMixin, UpdateView):
+    model = Album
+    fields = ['owner','title', 'description', 'public']
+    template_name = "photos/edit_album.html"
+    success_url = reverse_lazy('album_list')
+    def get_success_url (self):
+        return f"/albums/view/{self.kwargs['pk']}"
 
 class AddPhoto(LoginRequiredMixin, FormView):
     form_class = AddPhotoForm
