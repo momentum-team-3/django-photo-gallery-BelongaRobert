@@ -85,7 +85,7 @@ class AddComment(LoginRequiredMixin, FormView):
     form_class = AddCommentForm
     template_name = 'photos/add_comment.html'
     fields = ['body', 'owner', 'photo_of']
-    success_url = 'photos/photo_list.html'
+    success_url = '/'
 
     def form_valid(self, form):
         form.save()

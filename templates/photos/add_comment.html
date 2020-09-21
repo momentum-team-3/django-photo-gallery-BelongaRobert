@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Add a comment to the photo</h2>
 <div>
-    <form action="{% url 'add_comment' photo_pk=photo_pk %}" method="POST" enctype="multipart/form-data">
+    <form action="{% url 'add_comment' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <div>
