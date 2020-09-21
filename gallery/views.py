@@ -17,7 +17,7 @@ class HomeView(TemplateView):
 class PhotoList(LoginRequiredMixin, ListView):
     model = Photo
     template_name = "photos/photo_list.html"
-    photos = Photo.objects.all()
+    queryset = Photo.objects.all()
     def get_context_data(self, **kwargs):
         context = super(PhotoList, self).get_context_data(**kwargs)
         photos = self.get_queryset()
@@ -27,7 +27,14 @@ class PhotoList(LoginRequiredMixin, ListView):
 class CommentListView(LoginRequiredMixin, ListView):
     model = Summary
     template_name = "photos/view_comment.html"
-    
+    queryset = Summary.objects.all()
+    def get_context_data(self, **kwargs):
+        context = super(CommentListView, self).get_context_data(**kwargs)
+        summaries = self.get_queryset()
+        context['summaries'] = summaries
+        return context
+
+
 class AlbumList(LoginRequiredMixin, ListView):
     model = Album
     template_name = "photos/album_list.html"
@@ -50,7 +57,7 @@ class DeletePhoto(LoginRequiredMixin, DeleteView):
     model = Photo
     template_name = "delete_photo.html"
 
-""" class AddAlbum(LoginRequiredMixin, FormView):
+class AddAlbum(LoginRequiredMixin, FormView):
     form_class = AddAlbumForm
     template_name = "photos/add_album.html"
     fields = ['owner', 'title', 'description', 'public', ]
@@ -58,15 +65,11 @@ class DeletePhoto(LoginRequiredMixin, DeleteView):
     success_url = '/'
     
     def form_valid(self, form):
-        form.save()
-        Album.owner = user.username
-        data = {
-            'pk:self.object.pk,
-        }
-        return redirect(self.success_url, Album_pk=Album.pk)
- """
+        form.save() 
+        return redirect(self.success_url)
 
-def AddAlbum(request):
+
+""" def AddAlbum(request):
     if request.method == "GET":
         form = AddAlbumForm()
     else:
@@ -78,7 +81,7 @@ def AddAlbum(request):
             return redirect(to="album_list")
     return render(request, "photos/add_album.html", {
         "form": form,
-    })
+    }) """
             
 class EditAlbum(LoginRequiredMixin, UpdateView):
     model = Album

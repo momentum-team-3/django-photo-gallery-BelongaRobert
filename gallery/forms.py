@@ -5,7 +5,7 @@ class AddAlbumForm(ModelForm):
     class Meta:
         model = Album
         fields = [
-            #'owner',
+            'owner',
             'title',
             'description',
             'public',
