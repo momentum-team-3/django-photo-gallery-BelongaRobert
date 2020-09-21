@@ -5,7 +5,7 @@ from django.views.generic.base import RedirectView
 from django.shortcuts import redirect
 #from django.contrib.auth.decorators import login_required
 from .forms import AddAlbumForm, AddPhotoForm, AddCommentForm
-from gallery.models import Photo, Album
+from gallery.models import Photo, Album, Summary
 from users.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -24,9 +24,9 @@ class PhotoList(LoginRequiredMixin, ListView):
         context['photos'] = photos
         return context
 
-class PhotoView(LoginRequiredMixin, DetailView):
-    model = Photo
-    template_name = "photos/photo_view.html"
+class CommentListView(LoginRequiredMixin, ListView):
+    model = Summary
+    template_name = "photos/view_comment.html"
     
 class AlbumList(LoginRequiredMixin, ListView):
     model = Album
@@ -81,12 +81,11 @@ class ProfileView(LoginRequiredMixin, DetailView):
     template_name = "auth_login.html"
     
 
-
 class AddComment(LoginRequiredMixin, FormView):
     form_class = AddCommentForm
     template_name = 'photos/add_comment.html'
     fields = ['body', 'owner', 'photo_of']
-    success_url = 'photos/photo_view.html'
+    success_url = 'photos/photo_list.html'
 
     def form_valid(self, form):
         form.save()

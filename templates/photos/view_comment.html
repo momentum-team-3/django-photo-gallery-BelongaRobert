@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+   <h1>List of summarys</h1>
+    {% for summary in summarys %}
+    <div class="summaryList">
+      <p>{{ summary.title }}</p>
+      <p>{{ summary.description }}</p>
+      <p>{{ summary.owner }}</p>
+      <p>{{ summary.created }}</p>
+    </div>
+    <div>
+        <a href="{% url 'comment_view' %}">View Comments</a>
+  </div>
+    {% endfor %}
+{% endblock %}

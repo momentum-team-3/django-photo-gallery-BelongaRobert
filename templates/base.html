@@ -34,7 +34,7 @@
               <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'auth_logout' %}" title="Logout">Logout</a>
               <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'add_album' %}" title="Create Album">Create Album</a>
               <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'album_list' %}" title="List Album">List Albums</a>
-            {% else %}
+              {% else %}
             <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'home' %}" title="Home">Home</a>
               <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'auth_login' %}" title="Login">Login</a>
               <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'registration_register' %}" title="Create Account">Create an account</a>
