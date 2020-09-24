@@ -1,11 +1,11 @@
-from django.shortcuts import render
+#from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, DeleteView, FormView, UpdateView
 from django.views.generic.base import RedirectView
 from django.urls import reverse_lazy
 from django.shortcuts import redirect
 #from django.contrib.auth.decorators import login_required
 from .forms import AddAlbumForm, AddPhotoForm, AddCommentForm
-from gallery.models import Photo, Album, Summary
+from gallery.models import Photo, Album, Comment
 from users.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -17,17 +17,17 @@ class HomeView(TemplateView):
 class PhotoList(LoginRequiredMixin, ListView):
     model = Photo
     template_name = "photos/photo_list.html"
-    queryset = Photo.objects.all()
-    def get_context_data(self, **kwargs):
-        context = super(PhotoList, self).get_context_data(**kwargs)
-        photos = self.get_queryset()
-        context['photos'] = photos
-        return context
+    def get_queryset(self):
+        return self.request.user.albums.photos.all()
+    
+
 
 class CommentListView(LoginRequiredMixin, ListView):
-    model = Summary
+    model = Comment
     template_name = "photos/view_comment.html"
-    queryset = Summary.objects.all()
+    def get_queryset(self):
+        return self.request.photo.summaries.all()
+
     def get_context_data(self, **kwargs):
         context = super(CommentListView, self).get_context_data(**kwargs)
         summaries = self.get_queryset()
@@ -38,7 +38,9 @@ class CommentListView(LoginRequiredMixin, ListView):
 class AlbumList(LoginRequiredMixin, ListView):
     model = Album
     template_name = "photos/album_list.html"
-    queryset = Album.objects.all()
+    def get_queryset(self):
+        return self.request.user.albums.all()
+
     def get_context_data(self, **kwargs):
         context = super(AlbumList, self).get_context_data(**kwargs)
         albums = self.get_queryset()
@@ -68,20 +70,6 @@ class AddAlbum(LoginRequiredMixin, FormView):
         form.save() 
         return redirect(self.success_url)
 
-
-""" def AddAlbum(request):
-    if request.method == "GET":
-        form = AddAlbumForm()
-    else:
-        form = AddAlbumForm(request.POST)
-        if form.is_valid():
-            album = form.save()
-            album.owner.add(request.user)
-            album.save()
-            return redirect(to="album_list")
-    return render(request, "photos/add_album.html", {
-        "form": form,
-    }) """
             
 class EditAlbum(LoginRequiredMixin, UpdateView):
     model = Album

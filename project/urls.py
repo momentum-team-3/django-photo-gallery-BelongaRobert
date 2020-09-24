@@ -18,6 +18,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.urls import include, path
 from gallery import views
+from api import views as api_views
 
 
 urlpatterns = [
@@ -27,11 +28,18 @@ urlpatterns = [
     path('addalbum/', views.AddAlbum.as_view(), name='add_album'),
     path('albumlist/', views.AlbumList.as_view(), name='album_list'),
     path('addphoto/', views.AddPhoto.as_view(), name='add_photo'),
-    path('photolist/', views.PhotoList.as_view(), name='photo_list'),
+    path('photolist/<int:pk>', views.PhotoList.as_view(), name='photo_list'),
     path('albumview/',views.AlbumView.as_view(), name='album_view'),
     path('addcomment/', views.AddComment.as_view(), name='add_comment'),
     path('viewcomment/', views.CommentListView.as_view(), name='view_comment'),
-    path('editalbum/', views.EditAlbum.as_view(), name='edit_album')
+    path('editalbum/', views.EditAlbum.as_view(), name='edit_album'),
+   
+# api urls #
+    
+    path('api-auth/', include('rest_framework.urls')),
+    path('api/recipes/', api_views.AlbumListView.as_view()),
+    path('api/recipes/<int:pk>/', api_views.AlbumDetailView.as_view()),
+
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

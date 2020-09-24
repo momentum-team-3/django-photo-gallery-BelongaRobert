@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'imagekit',
     #'photo.apps.PhotoCongig',
+    'rest_framework',
 
     # Project-specific
     'users',
