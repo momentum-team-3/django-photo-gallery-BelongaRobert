@@ -18,8 +18,13 @@ class PhotoList(LoginRequiredMixin, ListView):
     model = Photo
     template_name = "photos/photo_list.html"
     def get_queryset(self):
-        return self.request.user.albums.photos.all()
+        return self.request.user.photos.all()
     
+    def get_context_data(self, **kwargs):
+        context = super(PhotoList, self).get_context_data(**kwargs)
+        photos = self.get_queryset()
+        context['photos'] = photos
+        return context
 
 
 class CommentListView(LoginRequiredMixin, ListView):
@@ -30,8 +35,8 @@ class CommentListView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super(CommentListView, self).get_context_data(**kwargs)
-        summaries = self.get_queryset()
-        context['summaries'] = summaries
+        comment = self.get_queryset()
+        context['comment'] = comment
         return context
 
 

@@ -37,9 +37,9 @@ urlpatterns = [
 # api urls #
     
     path('api-auth/', include('rest_framework.urls')),
-    path('api/recipes/', api_views.AlbumListView.as_view()),
-    path('api/recipes/<int:pk>/', api_views.AlbumDetailView.as_view()),
-
+    path('api/albumlist/', api_views.AlbumListView.as_view(), name ='albumlistview'),
+    path('api/<int:pk>/albumdetail/', api_views.AlbumDetailView.as_view(), name = 'albumdetailview'),
+   
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

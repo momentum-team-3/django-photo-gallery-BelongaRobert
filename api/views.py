@@ -1,6 +1,6 @@
 from rest_framework import generics
-from api.serializers import AlbumSerializer, PhotoSerializer, CommentSerializer
-from gallery.models import Album, Photo, Comment
+from api.serializers import AlbumSerializer, PhotoSerializer
+from gallery.models import Album, Photo
 
 
 class AlbumListView(generics.ListCreateAPIView):
@@ -8,9 +8,6 @@ class AlbumListView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Album.objects.for_user(self.request.user)
-
-    def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
 
 
 class AlbumDetailView(generics.RetrieveUpdateDestroyAPIView):
@@ -25,13 +22,3 @@ class PhotoListView(generics.ListCreateAPIView):
 class PhotoDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
-
-
-class CommentListView(generics.ListCreateAPIView):
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer
-
-
-class CommentDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Comment.objects.all()
-    serializer_class = CommentSerializer

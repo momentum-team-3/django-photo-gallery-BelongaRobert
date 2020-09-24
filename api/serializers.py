@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from gallery.models import Album, Photo, Comment
+from gallery.models import Album, Photo
 
 class AlbumSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
@@ -27,16 +27,3 @@ class PhotoSerializer(serializers.ModelSerializer):
             "created",
             "username",
         ]
-
-
-class CommentSerializer(serializers.ModelSerializer):
-    username = serializers.CharField(source="user.username", read_only=True)
-
-    class Meta:
-        model = Comment
-        fields = [
-            "id",
-            "comment",
-            "created",
-            "username",
-        ]       
