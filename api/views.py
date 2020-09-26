@@ -7,8 +7,10 @@ class AlbumListView(generics.ListCreateAPIView):
     serializer_class = AlbumSerializer
 
     def get_queryset(self):
-        return Album.objects.for_user(self.request.user)
+        return self.request.user.albums
 
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 class AlbumDetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = AlbumSerializer
@@ -17,7 +19,6 @@ class AlbumDetailView(generics.RetrieveUpdateDestroyAPIView):
 class PhotoListView(generics.ListCreateAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
-
 
 class PhotoDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Photo.objects.all()
