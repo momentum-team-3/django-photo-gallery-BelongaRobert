@@ -15,7 +15,6 @@ class Album(models.Model):
     public = models.BooleanField(default=True)
     default_photo = models.ForeignKey(to="Photo", on_delete=models.CASCADE, blank=True, null=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
-    photos = models.ManyToManyField(to="Photo", related_name="albums")
     
     def __str__(self):
         return f'{self.title}'
@@ -29,9 +28,8 @@ class Photo(models.Model):
     description = models.TextField(max_length=500, blank=True)
     #comments = models.ForeignKey(to="comment", on_delete=models.CASCADE, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
-    albums_in = models.ManyToManyField(to="Album", blank=True)
     public = models.BooleanField(default=True)
-
+    albums = models.ManyToManyField(to=Album, related_name='photos')
     class Meta:
         ordering = ['created']
 

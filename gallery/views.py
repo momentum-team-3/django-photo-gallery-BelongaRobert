@@ -17,7 +17,7 @@ class HomeView(TemplateView):
 class PhotoList(View):
     def get(self, request, pk):
         album = get_object_or_404(Album, pk=pk)
-        return render(request, "photos/photo_list.html", {"album": album, "photos":Photo})
+        return render(request, "photos/photo_list.html", {"album": album})
     
     # def get_context_data(self, **kwargs):
     #     context = super(PhotoList, self).get_context_data(**kwargs)
@@ -25,17 +25,18 @@ class PhotoList(View):
     #     context['photos'] = photos
     #     return context
 
-class CommentListView(LoginRequiredMixin, ListView):
+class CommentListView(View):
     model = Comment
     template_name = "photos/view_comment.html"
-    def get_queryset(self):
-        return self.request.photo.summaries.all()
-
-    def get_context_data(self, **kwargs):
-        context = super(CommentListView, self).get_context_data(**kwargs)
-        comment = self.get_queryset()
-        context['comment'] = comment
-        return context
+    def get(self, request, pk):
+        photo = get_object_or_404(Photo, pk=pk)
+        return render(request, "photos/view_comment.html", {"photo": photo})
+    
+    # def get_context_data(self, **kwargs):
+    #     context = super(CommentListView, self).get_context_data(**kwargs)
+    #     comment = self.get_queryset()
+    #     context['comment'] = comment
+    #     return context
 
 class list_all_albums(ListView):
     model = Album

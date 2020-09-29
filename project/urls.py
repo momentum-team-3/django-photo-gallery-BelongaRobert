@@ -33,7 +33,7 @@ urlpatterns = [
     path('albumview/',views.AlbumView.as_view(), name='album_view'),
     path('addcomment/', views.AddComment.as_view(), name='add_comment'),
     path('viewcomment/', views.CommentListView.as_view(), name='view_comment'),
-    path('editalbum/', views.EditAlbum.as_view(), name='edit_album'),
+    path('editalbum/<int:pk>', views.EditAlbum.as_view(), name='edit_album'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
 
 # api urls #
