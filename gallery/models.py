@@ -13,7 +13,7 @@ class Album(models.Model):
     title = models.TextField(max_length=150)
     description = models.TextField(max_length=300, blank=True)
     public = models.BooleanField(default=True)
-    default_photo = models.ForeignKey(to="Photo", on_delete=models.CASCADE, blank=True, null=True)
+    default_photo = models.ForeignKey(to="Photo", on_delete=models.DO_NOTHING, blank=True, null=True, related_name='default_photo')
     created = models.DateTimeField(auto_now_add=True, null=True)
     
     def __str__(self):
@@ -38,8 +38,8 @@ class Photo(models.Model):
 
 class Comment(models.Model):
     body = models.TextField(max_length=1500)
-    owner = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True )
-    photo_of = models.ForeignKey(to="Photo", on_delete=models.CASCADE, null=True)
+    owner = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, related_name='comments' )
+    photo_of = models.ForeignKey(to="Photo", on_delete=models.CASCADE, null=True, related_name='comments')
     created = models.DateTimeField(auto_now_add=True, null=True, blank=True)
 
     class Meta:

@@ -19,11 +19,6 @@ class PhotoList(View):
         album = get_object_or_404(Album, pk=pk)
         return render(request, "photos/photo_list.html", {"album": album})
     
-    # def get_context_data(self, **kwargs):
-    #     context = super(PhotoList, self).get_context_data(**kwargs)
-    #     photos = self.get_queryset()
-    #     context['photos'] = photos
-    #     return context
 
 class CommentListView(View):
     model = Comment
@@ -85,8 +80,8 @@ class EditAlbum(LoginRequiredMixin, UpdateView):
     fields = ['owner','title', 'description', 'public']
     template_name = "photos/edit_album.html"
     success_url = '/'
-    # def get_success_url (self):
-    #     return f"/albums/view/{self.kwargs['pk']}"
+    def get_success_url (self):
+        return f"/albums/view/{self.kwargs['pk']}"
 
 class AddPhoto(LoginRequiredMixin, FormView):
     form_class = AddPhotoForm
