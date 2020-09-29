@@ -21,7 +21,7 @@ class Album(models.Model):
         return f'{self.title}'
 
 class Photo(models.Model):
-    owner = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, related_name='user')
+    owner = models.ForeignKey(to=User, on_delete=models.CASCADE, null=True, related_name='photos')
     title = models.TextField(max_length=150)
     media = models.ImageField(upload_to="media", null=True, blank=True)
     image_medium = ImageSpecField(source="media", processors=[ResizeToFit(300,300)], format='jpeg', options={'quality':80} )

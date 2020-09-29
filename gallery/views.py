@@ -1,5 +1,5 @@
 #from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView, DeleteView, FormView, UpdateView
+from django.views.generic import TemplateView, ListView, DetailView, DeleteView, FormView, UpdateView, View
 from django.views.generic.base import RedirectView
 from django.shortcuts import redirect
 #from django.contrib.auth.decorators import login_required
@@ -7,22 +7,23 @@ from .forms import AddAlbumForm, AddPhotoForm, AddCommentForm
 from gallery.models import Photo, Album, Comment
 from users.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404, render
 
 # Create your views here.
 
 class HomeView(TemplateView):
     template_name = "photos/home.html"
 
-class PhotoList(LoginRequiredMixin, ListView):
-    model = Photo
-    template_name = "photos/photo_list.html"
-   # queryset = Album.objects.photos.all()
+class PhotoList(View):
+    def get(self, request, pk):
+        album = get_object_or_404(Album, pk=pk)
+        return render(request, "photos/photo_list.html", {"album": album, "photos":Photo})
     
-    def get_context_data(self, **kwargs):
-        context = super(PhotoList, self).get_context_data(**kwargs)
-        photos = self.get_queryset()
-        context['photos'] = photos
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super(PhotoList, self).get_context_data(**kwargs)
+    #     photos = self.get_queryset()
+    #     context['photos'] = photos
+    #     return context
 
 class CommentListView(LoginRequiredMixin, ListView):
     model = Comment
@@ -51,7 +52,7 @@ class AlbumList(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(AlbumList, self).get_context_data(**kwargs)
         albums = self.get_queryset()
-        #cover_photo = self.request.GET.get('default_photo')
+        #default_image = self.request.GET.get('default_photo')
         context['albums'] = albums
         return context
 

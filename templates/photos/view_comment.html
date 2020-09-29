@@ -3,12 +3,12 @@
 {% block content %}
    <h1>List of comments</h1>
    <a href="{% url 'add_comment' %}">Add a comment</a>
-    {% for summary in Summaries %}
+    {% for comment in comments %}
     <div class="summaryList"></div>
-      <p>{{ summary.title }}</p>
-      <p>{{ summary.description }}</p>
-      <p>{{ summary.owner }}</p>
-      <p>{{ summary.created }}</p>
+      <p>{{ comment.title }}</p>
+      <p>{{ comment.description }}</p>
+      <p>{{ comment.owner }}</p>
+      <p>{{ comment.created }}</p>
     </div>
     {% endfor %}
 {% endblock %}
