@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
+{% if user.is_authenticated %}
+<p>Hello {{ user.username }} !</p>
+<p>{{ user.email }}</p>
+ {% else %}
 
-<p>{{ user.username }}</p>
+ <a class="link dim gray f6 f5-ns dib mr3" href="{% url 'registration_register' %}" title="Create Account">Create an account</a>
 
 {% block content %}
 {% endblock %}

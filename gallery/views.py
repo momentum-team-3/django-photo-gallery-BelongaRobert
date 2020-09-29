@@ -1,7 +1,6 @@
 #from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, DetailView, DeleteView, FormView, UpdateView
 from django.views.generic.base import RedirectView
-from django.urls import reverse_lazy
 from django.shortcuts import redirect
 #from django.contrib.auth.decorators import login_required
 from .forms import AddAlbumForm, AddPhotoForm, AddCommentForm
@@ -36,6 +35,11 @@ class CommentListView(LoginRequiredMixin, ListView):
         comment = self.get_queryset()
         context['comment'] = comment
         return context
+
+class list_all_albums(ListView):
+    model = Album
+    template_name = 'photos/list_all_albums.html'
+    queryset = Album.objects.all()
 
 
 class AlbumList(LoginRequiredMixin, ListView):

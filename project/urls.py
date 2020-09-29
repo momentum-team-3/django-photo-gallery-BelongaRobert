@@ -27,6 +27,7 @@ urlpatterns = [
     path('accounts/', include('registration.backends.simple.urls')),
     path('addalbum/', views.AddAlbum.as_view(), name='add_album'),
     path('albumlist/', views.AlbumList.as_view(), name='album_list'),
+    path('list_all_albums/', views.list_all_albums.as_view(), name='list_all_albums'),
     path('addphoto/', views.AddPhoto.as_view(), name='add_photo'),
     path('photolist/<int:pk>', views.PhotoList.as_view(), name='photo_list'),
     path('albumview/',views.AlbumView.as_view(), name='album_view'),
