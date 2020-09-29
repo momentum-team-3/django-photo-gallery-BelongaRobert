@@ -17,15 +17,13 @@ class HomeView(TemplateView):
 class PhotoList(LoginRequiredMixin, ListView):
     model = Photo
     template_name = "photos/photo_list.html"
-    def get_queryset(self):
-        return self.request.user.photos.all()
+   # queryset = Album.objects.photos.all()
     
     def get_context_data(self, **kwargs):
         context = super(PhotoList, self).get_context_data(**kwargs)
         photos = self.get_queryset()
         context['photos'] = photos
         return context
-
 
 class CommentListView(LoginRequiredMixin, ListView):
     model = Comment
@@ -80,9 +78,9 @@ class EditAlbum(LoginRequiredMixin, UpdateView):
     model = Album
     fields = ['owner','title', 'description', 'public']
     template_name = "photos/edit_album.html"
-    success_url = reverse_lazy('album_list')
-    def get_success_url (self):
-        return f"/albums/view/{self.kwargs['pk']}"
+    success_url = '/'
+    # def get_success_url (self):
+    #     return f"/albums/view/{self.kwargs['pk']}"
 
 class AddPhoto(LoginRequiredMixin, FormView):
     form_class = AddPhotoForm
@@ -100,7 +98,7 @@ class Login(RedirectView):
             
 class ProfileView(LoginRequiredMixin, DetailView):
     model = User
-    template_name = "auth_login.html"
+    template_name = "profile.html"
     
 
 class AddComment(LoginRequiredMixin, FormView):

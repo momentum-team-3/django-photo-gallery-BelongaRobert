@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'imagekit',
     #'photo.apps.PhotoCongig',
     'rest_framework',
+    'djoser',
 
     # Project-specific
     'users',

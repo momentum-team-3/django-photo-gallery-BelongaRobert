@@ -33,13 +33,19 @@ urlpatterns = [
     path('addcomment/', views.AddComment.as_view(), name='add_comment'),
     path('viewcomment/', views.CommentListView.as_view(), name='view_comment'),
     path('editalbum/', views.EditAlbum.as_view(), name='edit_album'),
-   
+    path('profile/', views.ProfileView.as_view(), name='profile'),
+
 # api urls #
     
     path('api-auth/', include('rest_framework.urls')),
     path('api/albumlist/', api_views.AlbumListView.as_view(), name ='albumlistview'),
     path('api/albumlist/<int:pk>/', api_views.AlbumDetailView.as_view(), name = 'albumdetailview'),
-   
+    # path('api/photo/<int:pk>/', api_views.PhotoImageApiView.as_view()),
+    # path('api/photo/', api_views.PhotoListView.as_view()),
+    # path('api/photo/<int:pk>/', api_views.PhotoDetailView.as_view()),
+    # path('api/auth/', include('djoser.urls')),
+    # path('api/auth/', include('djoser.urls.authtoken')),
+
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
