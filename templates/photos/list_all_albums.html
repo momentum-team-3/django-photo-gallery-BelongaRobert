@@ -9,7 +9,7 @@
   <img src="{{ photos.image_thumb.url }}" class="w-100 db" alt="{{ album.description }}">
   <div class="pa3">
     <ul><li><a href="{% url 'photo_list' album.pk %}" class="link dim lh-title">View Photos in Album</a></li>
-   <li> <a href="{% url 'edit_album' %}" class="link dim lh-title">Edit Album</a></li></ul>
+   <li> <a href="{% url 'edit_album' album.pk %}" class="link dim lh-title">Edit Album</a></li></ul>
 
     <small class="gray db pv2">{{ album.owner }} - <time>{{ album.created }}</time></small>
   </div>

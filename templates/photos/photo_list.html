@@ -18,11 +18,7 @@
         <p class="f6 lh-copy measure mt2 mid-gray">
           {{ photos.description }}</p>         
           <p>{{ photos.created }}</p>
-         {% if request.user.is_authenticated %}
-          <a href="{% url 'view_comment' %}">View Comments</a>
-          {% else %}
-          <a href="{% url 'edit_album' %}">Edit Album</a>
-          {% endif %}
+          <a href="{% url 'view_comment' %}">View Comments</a>         
         </div>
     </article>
 

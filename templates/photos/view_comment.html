@@ -3,7 +3,7 @@
 {% block content %}
    <h1>List of comments</h1>
    <a href="{% url 'add_comment' %}">Add a comment</a>
-    {% for comment in comments %}
+    {% for comment in photo.comments.all %}
     <div class="summaryList"></div>
       <p>{{ comment.title }}</p>
       <p>{{ comment.description }}</p>

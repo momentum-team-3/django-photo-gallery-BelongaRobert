@@ -30,10 +30,10 @@ urlpatterns = [
     path('list_all_albums/', views.list_all_albums.as_view(), name='list_all_albums'),
     path('addphoto/', views.AddPhoto.as_view(), name='add_photo'),
     path('photolist/<int:pk>', views.PhotoList.as_view(), name='photo_list'),
-    path('albumview/',views.AlbumView.as_view(), name='album_view'),
+    path('view_album/<int:pk>',views.AlbumView.as_view(), name='view_album'),
     path('addcomment/', views.AddComment.as_view(), name='add_comment'),
-    path('viewcomment/', views.CommentListView.as_view(), name='view_comment'),
-    path('editalbum/', views.EditAlbum.as_view(), name='edit_album'),
+    path('view_comment/', views.CommentListView.as_view(), name='view_comment'),
+    path('editalbum/<int:pk>', views.EditAlbum.as_view(), name='edit_album'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
 
 # api urls #

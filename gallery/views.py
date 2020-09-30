@@ -1,5 +1,5 @@
 #from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView, DeleteView, FormView, UpdateView, View
+from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, View
 from django.views.generic.base import RedirectView
 from django.shortcuts import redirect
 #from django.contrib.auth.decorators import login_required
@@ -8,7 +8,6 @@ from gallery.models import Photo, Album, Comment
 from users.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
-
 # Create your views here.
 
 class HomeView(TemplateView):
@@ -23,15 +22,14 @@ class PhotoList(View):
 class CommentListView(View):
     model = Comment
     template_name = "photos/view_comment.html"
-    def get(self, request, pk):
-        photo = get_object_or_404(Photo, pk=pk)
-        return render(request, "photos/view_comment.html", {"photo": photo})
+    def get_queryset(self):
+        return self.request.photos.comments.all()
     
-    # def get_context_data(self, **kwargs):
-    #     context = super(CommentListView, self).get_context_data(**kwargs)
-    #     comment = self.get_queryset()
-    #     context['comment'] = comment
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super(CommentListView, self).get_context_data(**kwargs)
+        comment = self.get_queryset()
+        context['comment'] = comment
+        return context
 
 class list_all_albums(ListView):
     model = Album
@@ -48,7 +46,6 @@ class AlbumList(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super(AlbumList, self).get_context_data(**kwargs)
         albums = self.get_queryset()
-        #default_image = self.request.GET.get('default_photo')
         context['albums'] = albums
         return context
 
@@ -59,9 +56,13 @@ class AlbumView(LoginRequiredMixin, DetailView):
     queryset = Album.objects.all()
 
    
-class DeletePhoto(LoginRequiredMixin, DeleteView):
-    model = Photo
-    template_name = "delete_photo.html"
+class DeletePhoto(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        photo = get_object_or_404(Photo, pk=pk)
+        photo.delete()
+        return render(request, "photos/photo_list.html", {"photo": photo})
+
+    
 
 class AddAlbum(LoginRequiredMixin, FormView):
     form_class = AddAlbumForm
@@ -80,8 +81,6 @@ class EditAlbum(LoginRequiredMixin, UpdateView):
     fields = ['owner','title', 'description', 'public']
     template_name = "photos/edit_album.html"
     success_url = '/'
-    def get_success_url (self):
-        return f"/albums/view/{self.kwargs['pk']}"
 
 class AddPhoto(LoginRequiredMixin, FormView):
     form_class = AddPhotoForm
