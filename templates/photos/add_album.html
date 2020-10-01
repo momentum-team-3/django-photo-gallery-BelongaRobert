@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Create a new Album!</h2>
 <div class="addalbumform">
-    <form action="{% url 'add_album' %}" method="POST" enctype="multipart/form-data">
+    <form style="text-align:center" action="{% url 'add_album' %}" method="POST" enctype="multipart/form-data">
         <div class="measure"></div>
         {% csrf_token %}
         {{ form.as_p }}

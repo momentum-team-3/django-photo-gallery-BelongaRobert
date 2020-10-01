@@ -35,7 +35,8 @@ urlpatterns = [
     path('view_comment/', views.CommentListView.as_view(), name='view_comment'),
     path('album/edit/<int:pk>', views.EditAlbum.as_view(), name='edit_album'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
-    path('photo/delete/<int:pk>', views.DeletePhoto.as_view(), name='delete_photo'),
+    path('userphotos/', views.UserPhotos.as_view(), name='user_photos'),
+    path('photo/delete/', views.DeletePhoto.as_view(), name='delete_photo'),
 # api urls #
     
     path('api-auth/', include('rest_framework.urls')),

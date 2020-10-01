@@ -5,18 +5,18 @@
   <a class="link dim black f6 f5-ns dib mr3" href="{% url 'add_album' %}">Add your own album!</a>
   </nav>
 {% for album in object_list %}
+{% if album.public == True %}
 <article class="bg-white center mw5 ba b--black-10 mv4">
   <div class="pv2 ph3">
      <h1 class="f6 ttu tracked">{{ album.title }}</h1>
   </div>
   <img src="{{ album.default_photo.media.url }}" class="w-100 db" alt="{{ album.description }}">
   <div class="pa3">
-    <ul><li><a href="{% url 'photo_list' album.pk %}" class="link dim lh-title">View Photos in Album</a></li>
-   <li> <a href="{% url 'edit_album' album.pk %}" class="link dim lh-title">Edit Album</a></li></ul>
-
+    <li><b>{{ album.description }}</b></li>
+    <li><a href="{% url 'photo_list' album.pk %}" class="link dim lh-title">View Photos in Album</a></li>
     <small class="gray db pv2">{{ album.owner }} - <time>{{ album.created }}</time></small>
   </div>
 </article>
-
+{% endif %}
 {% endfor %}
 {% endblock %}

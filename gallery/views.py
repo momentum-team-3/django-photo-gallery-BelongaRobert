@@ -44,6 +44,17 @@ class AlbumList(LoginRequiredMixin, ListView):
         context['albums'] = albums
         return context
 
+class UserPhotos(LoginRequiredMixin, ListView):
+    model = Photo
+    template_name = "photos/user_photos.html"
+    def get_queryset(self):
+        return self.request.user.photos.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(UserPhotos, self).get_context_data(**kwargs)
+        photos = self.get_queryset()
+        context['photos'] = photos
+        return context
 
 class AlbumView(LoginRequiredMixin, DetailView):
     model = Album
