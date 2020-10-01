@@ -5,7 +5,6 @@ class AddAlbumForm(ModelForm):
     class Meta:
         model = Album
         fields = [
-            'owner',
             'title',
             'description',
             'public',
@@ -19,7 +18,6 @@ class AddPhotoForm(ModelForm):
     class Meta:
         model = Photo
         fields = [
-            'owner',
             'title',
             'media',
             'description',
@@ -34,8 +32,6 @@ class AddCommentForm(ModelForm):
     class Meta:
         model = Comment
         fields = [
-            'owner',
             'body',
-            'photo_of',
             #'created',
         ]

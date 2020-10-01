@@ -1,14 +1,20 @@
 {% extends "base.html" %}
 
 {% block content %}
-   <h1>List of comments</h1>
-   <a href="{% url 'add_comment' %}">Add a comment</a>
-    {% for comment in photo.comments %}
-    <div class="summaryList"></div>
-      <p>{{ comment.title }}</p>
-      <p>{{ comment.description }}</p>
-      <p>{{ comment.owner }}</p>
-      <p>{{ comment.created }}</p>
-    </div>
-    {% endfor %}
+
+<img class="db ba b--black-10"
+       alt="{{ photo.title }}"
+       src="{{ photo.image_medium.url }}">
+       <a href="{% url 'add_comment' pk=photo.pk %}">Add a comment</a>
+       <h2>List of comments</h2>
+  
+        {% for comment in photo.comments.all %}
+  <dl class="mt2 f6 lh-copy">
+    <dt class="clip">Title</dt>
+    <dd class="ml0">{{ comment.body }}</dd>
+    <dt class="clip">Artist</dt>
+    <dd class="ml0 gray">By <b>{{ comment.owner }}</b> on <b>{{ comment.created }}</b></dd>
+  </dl>
+</a>
+{% endfor %}
 {% endblock %}

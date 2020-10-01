@@ -20,10 +20,10 @@
       {{ photos.description }}</p>         
       <p>{{ photos.created }}</p>
       {% if request.user == photos.owner %}
-      <a href="{% url 'view_comment' %}">View Comments</a>
+      <a href="{% url 'view_comment' pk=photos.pk %}">View Comments</a>
       <a href="{% url 'delete_photo' %}">Delete Photo</a>
       {% else %}
-      <a href="{% url 'view_comment' %}">View Comments</a>
+      <a href="{% url 'view_comment' pk=photos.pk %}">View Comments</a>
     {% endif %}
     </div>
 

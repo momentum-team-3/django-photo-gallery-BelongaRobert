@@ -8,6 +8,7 @@ from gallery.models import Photo, Comment, Album
 from users.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
+
 # Create your views here.
 
 class HomeView(ListView):
@@ -23,8 +24,8 @@ class PhotoList(View):
 
 class CommentListView(View):
     def get(self, request, pk):
-        comment = get_object_or_404(Comment, pk=pk)
-        return render(request, 'photos/view_comment.html', {"comment": comment})
+        photo = get_object_or_404(Photo, pk=pk)
+        return render(request, 'photos/view_comment.html', {"photo": photo})
 
 class list_all_albums(ListView):
     model = Album
@@ -67,44 +68,39 @@ class DeletePhoto(LoginRequiredMixin, View):
         photo = get_object_or_404(Photo, pk=pk)
         photo.delete()
         return render(request, "photos/photo_list.html", {"photo": photo})
-
-    
+   
 
 class AddAlbum(LoginRequiredMixin, FormView):
     form_class = AddAlbumForm
     template_name = "photos/add_album.html"
     fields = ['owner', 'title', 'description', 'public', ]
     queryset = Album.objects.all()
-    success_url = '/'
+    success_url = 'list_all_albums'
     
     def form_valid(self, form):
-        form.save() 
+        album = form.save(commit=False)
+        album.owner = self.request.user
+        album.save() 
         return redirect(self.success_url)
 
-def EditAlbum(request, pk):
-    album = get_object_or_404(request.user.albums, pk=pk)
-    if request.method == "GET":
-        form = AddAlbumForm(instance=Album)
-    else:
-        form = AddAlbumForm(request.POST, instance=Album)
-        if form.is_valid():
-            form.save()
-            return redirect("album_list", pk=pk)
-    return render(request, "photos/edit_album.html", {
-        "album": album,
-    })            
-
+class EditAlbum(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        album = get_object_or_404(Album, pk=pk)
+        return redirect(request, "photos/list_all_albums.html", {"album": album})
+                 
 
 class AddPhoto(LoginRequiredMixin, FormView):
     form_class = AddPhotoForm
     template_name = "photos/add_photo.html"
     fields = ['owner', 'title', 'image', 'description', 'public']
     queryset = Photo.objects.all()
-    success_url = '/'
+    success_url = 'view_comment'
     
     def form_valid(self, form):
-        form.save()
-        return redirect(self.success_url)
+        photo = form.save(commit=False)
+        photo.owner = self.request.user
+        photo.save()
+        return redirect(self.success_url, pk=photo.pk)
 
 class Login(RedirectView):
     template_name = "auth_login.html"
@@ -118,8 +114,10 @@ class AddComment(LoginRequiredMixin, FormView):
     form_class = AddCommentForm
     template_name = 'photos/add_comment.html'
     fields = ['body', 'owner', 'photo_of']
-    success_url = '/'
+    success_url = 'view_comment'
 
     def form_valid(self, form):
-        form.save()
+        comment = form.save(commit=False)
+        comment.owner = self.request.user
+        comment.save() 
         return redirect(self.success_url)

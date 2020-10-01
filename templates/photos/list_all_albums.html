@@ -12,7 +12,7 @@
   </div>
   <img src="{{ album.default_photo.media.url }}" class="w-100 db" alt="{{ album.description }}">
   <div class="pa3">
-    <li><b>{{ album.description }}</b></li>
+    <!-- <li><b>{{ album.description }}</b></li> -->
     <li><a href="{% url 'photo_list' album.pk %}" class="link dim lh-title">View Photos in Album</a></li>
     <small class="gray db pv2">{{ album.owner }} - <time>{{ album.created }}</time></small>
   </div>
