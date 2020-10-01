@@ -2,7 +2,7 @@
 
 {% block content %}
 <h2>Add a new Photo</h2>
-<div class="AddPhotoForm">
+<div class="addphotoform">
     <form action="{% url 'add_photo' %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

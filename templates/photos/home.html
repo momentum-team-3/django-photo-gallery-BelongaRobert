@@ -1,1 +1,19 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+
+{% block content %}
+<nav style="text-align:center" class="pa3 pa4-ns">
+    <a class="link dim black f6 f5-ns dib mr3">Check out all new the photos that have been added to the collection!</a>
+    </nav>
+{% for photo in object_list %}
+<article class="bg-white center mw5 ba b--black-10 mv4">
+  <div class="pv2 ph3">
+     <h1 class="f6 ttu tracked">{{ photo.title }}</h1>
+  </div>
+  <img src="{{ photo.media.url }}" class="w-100 db" alt="{{ photo.description }}">
+  <div class="pa3">
+    <small class="gray db pv2">{{ photo.owner }} - <time>{{ photo.created }}</time></small>
+  </div>
+</article>
+
+{% endfor %}
+{% endblock %}

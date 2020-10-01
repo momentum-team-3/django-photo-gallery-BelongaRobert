@@ -29,13 +29,13 @@ urlpatterns = [
     path('albumlist/', views.AlbumList.as_view(), name='album_list'),
     path('list_all_albums/', views.list_all_albums.as_view(), name='list_all_albums'),
     path('addphoto/', views.AddPhoto.as_view(), name='add_photo'),
-    path('photolist/<int:pk>', views.PhotoList.as_view(), name='photo_list'),
-    path('view_album/<int:pk>',views.AlbumView.as_view(), name='view_album'),
+    path('photo/list/<int:pk>', views.PhotoList.as_view(), name='photo_list'),
+    path('album/view/<int:pk>',views.AlbumView.as_view(), name='album_view'),
     path('addcomment/', views.AddComment.as_view(), name='add_comment'),
     path('view_comment/', views.CommentListView.as_view(), name='view_comment'),
-    path('editalbum/<int:pk>', views.EditAlbum.as_view(), name='edit_album'),
+    path('album/edit/<int:pk>', views.EditAlbum.as_view(), name='edit_album'),
     path('profile/', views.ProfileView.as_view(), name='profile'),
-
+    path('photo/delete/<int:pk>', views.DeletePhoto.as_view(), name='delete_photo'),
 # api urls #
     
     path('api-auth/', include('rest_framework.urls')),

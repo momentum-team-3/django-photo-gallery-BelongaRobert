@@ -3,12 +3,12 @@
 {% block content %}
 <h1>Edit your Album</h1>
 <div>
-    <form method="POST">
+    <form action="{% url edit_album %}" method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <div>
             <button type="submit">Finalize Edit</button>
-           <a href="{% url 'view_album' %}">Cancel Edit</a> 
+           <a href="{% url 'view_album' album.pk %}">Cancel Edit</a> 
         </div>
     </form>
 </div>

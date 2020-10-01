@@ -1,5 +1,5 @@
 #from django.shortcuts import render
-from django.views.generic import TemplateView, ListView, DetailView, FormView, UpdateView, View
+from django.views.generic import ListView, DetailView, FormView, View, UpdateView
 from django.views.generic.base import RedirectView
 from django.shortcuts import redirect
 #from django.contrib.auth.decorators import login_required
@@ -10,8 +10,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 # Create your views here.
 
-class HomeView(TemplateView):
+class HomeView(ListView):
     template_name = "photos/home.html"
+    model = Photo
+    queryset = Photo.objects.all()
 
 class PhotoList(View):
     def get(self, request, pk):
@@ -20,16 +22,9 @@ class PhotoList(View):
     
 
 class CommentListView(View):
-    model = Comment
-    template_name = "photos/view_comment.html"
-    def get_queryset(self):
-        return self.request.photos.comments.all()
-    
-    def get_context_data(self, **kwargs):
-        context = super(CommentListView, self).get_context_data(**kwargs)
-        comment = self.get_queryset()
-        context['comment'] = comment
-        return context
+    def get(self, request, pk):
+        comment = get_object_or_404(Comment, pk=pk)
+        return render(request, 'photos/view_comment.html', {"comment": comment})
 
 class list_all_albums(ListView):
     model = Album
@@ -75,12 +70,14 @@ class AddAlbum(LoginRequiredMixin, FormView):
         form.save() 
         return redirect(self.success_url)
 
-            
 class EditAlbum(LoginRequiredMixin, UpdateView):
     model = Album
-    fields = ['owner','title', 'description', 'public']
-    template_name = "photos/edit_album.html"
-    success_url = '/'
+    template_name = 'photos/edit_album.html'
+    fields= ['owner', 'title', 'description', 'public']
+    def get_success_url (self):
+        return f"/photo/list/{self.kwags['pk']}"
+                   
+
 
 class AddPhoto(LoginRequiredMixin, FormView):
     form_class = AddPhotoForm
@@ -96,7 +93,7 @@ class AddPhoto(LoginRequiredMixin, FormView):
 class Login(RedirectView):
     template_name = "auth_login.html"
             
-class ProfileView(LoginRequiredMixin, DetailView):
+class ProfileView(LoginRequiredMixin, View):
     model = User
     template_name = "profile.html"
     

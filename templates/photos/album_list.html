@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block content %}
+<nav style="text-align:center" class="pa3 pa4-ns">
+  <a class="link dim black f6 f5-ns dib mr3" href="{% url 'add_album' %}">Create an album for yourself!</a>
+  </nav>
 {% for album in object_list %}
 <article class="bg-white center mw5 ba b--black-10 mv4">
   <div class="pv2 ph3">
      <h1 class="f6 ttu tracked">{{ album.title }}</h1>
-  </div>
-  <img src="{{ album.default_image.url }}" class="w-100 db" alt="{{ album.description }}">
+    </div class="w-100 db"><img src="{{ album.default_photo.media.url }}" alt="{{ album.description }}">
   <div class="pa3">
     <ul><li><a href="{% url 'photo_list' album.pk %}" class="link dim lh-title">View Photos in Album</a></li>
    <li> <a href="{% url 'edit_album' album.pk %}" class="link dim lh-title">Edit Album</a></li></ul>

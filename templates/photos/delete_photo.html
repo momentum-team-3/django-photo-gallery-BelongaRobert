@@ -1,1 +1,15 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
+
+{% block content %}
+<h1>Delete this photo?</h1>
+<div>
+    <form action="{% url delete_photo photo.pk%}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div>
+            <button type="submit">Confirm delete</button>
+           <a href="{% url 'photo_list' album.pk %}">Cancel Edit</a> 
+        </div>
+    </form>
+</div>
+{% endblock %}
