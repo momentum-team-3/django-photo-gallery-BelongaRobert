@@ -1,10 +1,10 @@
 #from django.shortcuts import render
-from django.views.generic import ListView, DetailView, FormView, View, UpdateView
+from django.views.generic import ListView, DetailView, FormView, View
 from django.views.generic.base import RedirectView
 from django.shortcuts import redirect
 #from django.contrib.auth.decorators import login_required
 from .forms import AddAlbumForm, AddPhotoForm, AddCommentForm
-from gallery.models import Photo, Album, Comment
+from gallery.models import Photo, Comment, Album
 from users.models import User
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
@@ -81,13 +81,18 @@ class AddAlbum(LoginRequiredMixin, FormView):
         form.save() 
         return redirect(self.success_url)
 
-class EditAlbum(LoginRequiredMixin, UpdateView):
-    model = Album
-    template_name = 'photos/edit_album.html'
-    fields= ['owner', 'title', 'description', 'public']
-    def get_success_url (self):
-        return f"/photo/list/{self.kwags['pk']}"
-                   
+def EditAlbum(request, pk):
+    album = get_object_or_404(request.user.albums, pk=pk)
+    if request.method == "GET":
+        form = AddAlbumForm(instance=Album)
+    else:
+        form = AddAlbumForm(request.POST, instance=Album)
+        if form.is_valid():
+            form.save()
+            return redirect("album_list", pk=pk)
+    return render(request, "photos/edit_album.html", {
+        "album": album,
+    })            
 
 
 class AddPhoto(LoginRequiredMixin, FormView):
